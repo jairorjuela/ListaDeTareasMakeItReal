@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/jquery/jquery-1.8.2.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<title>Lista de Tareas</title>
+</head>
+<body >
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-12">
+			<h1 class="text-center">Lista de Tareas</h1>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-4">
+				<form class="form-inline" action="/" method="post">
+					<input type="text" name="verbo" class="form-control" placeholder="Ingresa una tarea"/>
+					<button type="submit"  class="bbtn btn-primary btn-lg">
+						Crear Tarea
+					</button>
+				</form>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="col-md-8">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+						<th>Id</th>
+						<th>Tarea</th>
+						<th>Estado</th>
+						<th>Accion</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @tareas.each do |tarea| %>
+							<tr>
+								<td><%= tarea["id"] %></td>
+								<td><%= tarea["title"] %></td>
+								<td>
+									<% if tarea["done"] == true %>
+										Hecha
+									<%else %>
+										Tarea pendiente
+									<%end%>
+								</td>
+								<td>
+									<% if !tarea["done"] %>
+										<a class="btn btn-primary" href="/completar/<%=tarea["id"]%>" role="button">
+											Completar
+										</a>
+									<%end%>
+									<a class="btn btn-danger" href="/eliminar/<%=tarea["id"]%>" role="button">
+										Eliminar
+									</a>
+								</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+</body>
+</html>
